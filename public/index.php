@@ -2,27 +2,18 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use app\Router;
+$params = [
+  'viewpath' => __DIR__ . '/../views/',
+];
 
-class TestController {
-	public static function aaa() {
-		//echo $a;
-		return 'cc';
-	}
-	public static function a_ltyn($a, $b) {
-		//echo $a;
-		return $a * $b;
-	}
-}
+$app = new app\App($params);
 
-$router = new Router();
+$ctrl = new app\controllers\TaskController();
 
-$router->addRoutes( [
-	'/' => ['TestController', 'aaa'],
-	'mehmed/{one}/my-{two}-son' => ['TestController', 'a_ltyn'],
-	'mehmed/{one}/my/{two}' => ['TestController', 'a_ltyn']
+$app->addRoutes( [
+    '/' => [$ctrl, 'index'],
+    //'/create' => ['TaskController', 'create'],
+    //'/edit/{id}' => ['TaskController', 'edit']
 ]);
 
-
-echo $router->run();
-
+echo $app->run();
