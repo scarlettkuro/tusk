@@ -1,0 +1,18 @@
+{
+    "name": "kuro/tusk",
+    "description": "MVC task manager for test",
+    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "authors": [
+        {
+            "name": "Oleskandr Komarov",
+            "email": "o.w.komarow@gmail.com",
+            "homepage": "http://www.joshlockhart.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0"
+    },
+	"autoload": {
+		"psr-4": {"app\\": "app/"}
+	}
+}
