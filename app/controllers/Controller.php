@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use \app\App;
 
-class Controller {
+trait Controller {
     
     public function render($view, $params) {
         ob_start();

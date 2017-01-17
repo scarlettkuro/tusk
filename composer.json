@@ -1,12 +1,12 @@
 {
     "name": "kuro/tusk",
     "description": "MVC task manager for test",
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "homepage": "https://github.com/scarlettkuro/tusk",
     "authors": [
         {
             "name": "Oleskandr Komarov",
             "email": "o.w.komarow@gmail.com",
-            "homepage": "http://www.joshlockhart.com/"
+            "homepage": "https://github.com/scarlettkuro/"
         }
     ],
     "require": {
