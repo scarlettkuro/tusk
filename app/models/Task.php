@@ -10,17 +10,25 @@ class Task implements ModelInterface {
     
     use Model;
     
+    /** @property int id id */
     private $id = NULL;
+    /** @property String name */
     private $name;
+    /** @property String email */
     private $email;
+    /** @property String text */
     private $text;
+    /** @property String pic */
+    private $pic;
+    /** @property bool done */
+    private $done;
     
     public static function table_name() {
         return 'task';
     }
     
     public static function fields() {
-        return ['id', 'name', 'email', 'text'];
+        return ['id', 'name', 'email', 'text', 'pic', 'done'];
     }
     
     public static function primary() {
