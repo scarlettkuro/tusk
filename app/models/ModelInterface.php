@@ -8,8 +8,8 @@ namespace app\models;
  */
 interface ModelInterface {
     
-    function table_name();
-    public static function fields();
-    public static function primary();
+    static function table_name();
+    static function fields();
+    static function primary();
     
 }

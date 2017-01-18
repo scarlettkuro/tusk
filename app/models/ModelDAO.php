@@ -22,7 +22,7 @@ class ModelDAO {
         $this->pdo = new PDO("$driver:host=$host;dbname=$dbname;charset=$charset", $username, $password);*/
     }
     
-    public static function readAll() {
+    public function readAll() {
         $table_name = call_user_func([$this->modelClass, 'table_name']);
         
         $statement = $this->pdo->query("SELECT * FROM $table_name" );
@@ -34,7 +34,7 @@ class ModelDAO {
         return $entities;
     }
     
-    public static function read($id) {
+    public function read($id) {
         $table_name = call_user_func([$this->modelClass, 'table_name']);
         $pk= call_user_func([$this->modelClass, 'primary']);
         
