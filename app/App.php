@@ -11,6 +11,7 @@ class App {
     
     private $router;
     private $params;
+    private $components;
     private static $app;
     
     
@@ -39,5 +40,13 @@ class App {
     
     public function params() {
         return $this->params;
+    }
+    
+    public function addComponent($id, $component) {
+        $this->components[$id] = $component;
+    }
+    
+    public function component($id) {
+        return $this->components[$id];
     }
 }
