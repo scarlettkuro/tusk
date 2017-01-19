@@ -6,6 +6,7 @@ use framework\ModelDAO;
 use app\models\Task;
 use framework\App;
 use framework\Controller;
+use app\service\ImageProccessor;
 
 class TaskController {
     
@@ -41,7 +42,11 @@ class TaskController {
             $pic = $_FILES['pic'];
         if (!$pic['error']) {
             $filename =  App::app()->params()['uploadpath'] . time() . "." . pathinfo($pic['name'], PATHINFO_EXTENSION);
-            move_uploaded_file($pic['tmp_name'], App::app()->params()['enterpoint'] .  $filename);
+            $fullname = App::app()->params()['enterpoint'] .  $filename;
+            move_uploaded_file($pic['tmp_name'], $fullname );
+            $imp = new ImageProccessor($fullname );
+            $imp->resize(320, 240);
+            $imp->save($fullname);
             $task->pic = $filename;
         }
         //print_r($task);

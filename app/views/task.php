@@ -1,7 +1,7 @@
 <div class="row container" style="margin-top:20px" ng-app>
     <div class="col-6">
         <form action = "/save" method="post" enctype="multipart/form-data">
-            <input value="<?= $task-id ?>" name ="id" type="hidden"/>
+            <input value="<?= $task->id ?>" name ="id" type="hidden"/>
             <div class="form-check">
                 <label class="form-check-label">
                     <input ng-init = "done = <?= $task->done ? "true" : "false" ?>" ng-model="done" name = "done" type="checkbox" class="form-check-input"> Done

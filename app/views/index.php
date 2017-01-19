@@ -1,9 +1,7 @@
-<div class="card-deck">
+<div class="card-columns">
     <?php foreach($tasks as $task) : ?>
     <div class="card" style="width:320px;">
-        <div style = "height: 240px; width: 320px; overflow: hidden;" >
-            <img style="width: 100%;" src = "<?= $task->pic ?>" class="card-img-top">
-        </div>
+        <img src = "<?= $task->pic ?>" class="card-img-top">
         <div class="card-block">
             <h4 class="card-title">
             <?php if ($task->done) : ?>
