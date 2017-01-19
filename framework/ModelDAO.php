@@ -16,19 +16,20 @@ class ModelDAO {
     public function __construct($class) { 
         $this->pdo = App::app()->component('pdo');
         $this->modelClass = $class;
-        /*$charset = "utf8";
-        extract(App::app()->params()['dbparams']);
-        $this->pdo = new PDO("$driver:host=$host;dbname=$dbname;charset=$charset", $username, $password);*/
     }
     
     public function readAll() {
         $table_name = call_user_func([$this->modelClass, 'table_name']);
         
-        $statement = $this->pdo->query("SELECT * FROM $table_name" );
-        $entities = [];
-        while($entity = $statement->fetch(PDO::FETCH_CLASS, $this->modelClass)) {
-            $entities[] = $entity;
+        $statement = $this->pdo->prepare("SELECT * FROM $table_name" );
+        
+        if (!$statement->execute()) {
+            echo "\nPDO::errorInfo():\n";
+            print_r($statement->errorInfo());
         }
+        [];
+        $statement->setFetchMode(\PDO::FETCH_CLASS, $this->modelClass);
+        $entities =  $statement->fetchAll();
         
         return $entities;
     }
@@ -39,9 +40,13 @@ class ModelDAO {
         
         $sql = "SELECT * FROM $table_name WHERE $pk = :$pk";                      
         $statement = $this->pdo->prepare($sql); 
-        $statement->bindParam(':' . $pk, $id /*, PDO::PARAM_STR*/);     
-        $statement->execute(); 
-        $entity = $statement->fetch(PDO::FETCH_CLASS, $this->modelClass);
+        $statement->bindParam(':' . $pk, $id /*, PDO::PARAM_STR*/);    
+        if (!$statement->execute()) {
+            echo "\nPDO::errorInfo():\n";
+            print_r($statement->errorInfo());
+        }
+        $statement->setFetchMode(\PDO::FETCH_CLASS, $this->modelClass);
+        $entity = $statement->fetch();
         
         return $entity;
     }
@@ -64,17 +69,20 @@ class ModelDAO {
     }
     
     public function create($entity) {
-        $fields = array_diff($entity->fields(), [$entity-->primary()]);
+        $fields = array_diff($entity->fields(), [$entity->primary()]);
         $table_name = $entity->table_name();
         
-        $sql = "INSERT INTO $table_name (" . implode(", ", $fields) . ") VALUES (:" . implode(", :", $fields) . ")";                                 
+        $sql = "INSERT INTO $table_name (" . implode(", ", $fields) . ") VALUES (:" . implode(", :", $fields) . ")";   
         $statement = $this->pdo->prepare($sql);
 
         foreach($fields as $field) {                       
-            $statement->bindParam(':' . $field, $this->$field /*, PDO::PARAM_STR*/);       
+            $statement->bindParam(':' . $field, $entity->$field /*, PDO::PARAM_STR*/);       
         }
-
-        $statement->execute(); 
+        
+        if (!$statement->execute()) {
+            echo "\nPDO::errorInfo():\n";
+            print_r($statement->errorInfo());
+        }
     }
 
 
@@ -95,8 +103,11 @@ class ModelDAO {
         foreach($fields as $field) {                       
             $statement->bindParam(':' . $field, $entity->$field /*, PDO::PARAM_STR*/);       
         }
-
-        $statement->execute(); 
+        
+        if (!$statement->execute()) {
+            echo "\nPDO::errorInfo():\n";
+            print_r($statement->errorInfo());
+        }
     }
     
 }

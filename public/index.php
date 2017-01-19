@@ -2,25 +2,34 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use framework\App;
+use app\controllers\TaskController;
+
 $params = [
-    'viewpath' => __DIR__ . '/../app/views/',
-    'uploadpath' => __DIR__ . '/upload/',
+    'enterpoint' => __DIR__,
+    'viewpath' => '/../app/views/',
+    'uploadpath' => '/upload/',
     'dbparams' => [
-        'driver' => '',
-        'host' => '',
-        'dbname' => '',
-        'username' => '',
+        'driver' => 'mysql',
+        'host' => 'localhost',
+        'dbname' => 'tusk',
+        'username' => 'root',
         'password' => '',
+        'charset' => 'utf8'
     ]
 ];
 
-$app = new framework\App($params);
+$app = new App($params);
+extract($app->params()['dbparams']);
+$pdo = new PDO("$driver:host=$host;dbname=$dbname;charset=$charset", $username, $password);
+$app->addComponent('pdo', $pdo);
 
-$ctrl = new app\controllers\TaskController();
+$ctrl = new TaskController();
 
 $app->addRoutes( [
     '/' => [$ctrl, 'index'],
     '/task' => [$ctrl, 'task'],
+    '/task/{id}' => [$ctrl, 'task'],
     '/save' => [$ctrl, 'save'],
     '/json' => [$ctrl, 'json'],
     //'/create' => ['TaskController', 'create'],

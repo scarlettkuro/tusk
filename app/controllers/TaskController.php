@@ -12,45 +12,44 @@ class TaskController {
     use Controller;
     
     public function index() {
-        //$taskDAO = new ModelDAO(Task::class);
-        //$taskDAO->readAll();
-        
-        $tasks = [];
-        
-        for($i = 0; $i < 8; $i++) {
-            $task = new Task();
-            $task->name = "Vlada Tepes";
-            $task->email = "dracul.vamp@romana.com";
-            $task->text = "Hírnevet az uralkodása alatti különös kegyetlenkedéseivel szerzett. Uralkodóként az Oszmán Birodalomtól független politikát folytatott és harcolt az oszmán terjeszkedés ellen. Éppen emiatt Romániában III. Vladot Havasalföld védelmezőjének tekintik.";
-            $task->done =  rand(0,1) == 1;
-            $tasks[]  = $task;
-        }
+        $taskDAO = new ModelDAO(Task::class);
+        $tasks = $taskDAO->readAll();
                 
         return $this->render('index.php', ['tasks' => $tasks]);
     }
     
-    public function task() {
-        $task = new Task();
-        $task->name = "Vlada Tepes";
-        $task->email = "dracul.vamp@romana.com";
-        $task->text = "Hírnevet";
-        $task->done = rand(0,1) == 1;
+    public function task($id = NULL) {
+        $task = NULL;
+        if ($id != NULL) {
+            $taskDAO = new ModelDAO(Task::class);
+            $task = $taskDAO->read($id);
+        } else {
+            $task = new Task;
+        }
                 
         return $this->render('task.php', ['task' => $task]);
     }
     
     public function save() {
         $task = new Task();
+        $task->id = filter_input(INPUT_POST, 'id');
         $task->name = filter_input(INPUT_POST, 'name');
         $task->email = filter_input(INPUT_POST, 'email');
         $task->text = filter_input(INPUT_POST, 'text');
-        $task->done = filter_input(INPUT_POST, 'done');
-        $pic = $_FILES['pic'];
-        $filename = App::app()->params()['uploadpath'] . time() . "." . pathinfo($pic['name'], PATHINFO_EXTENSION);
-        move_uploaded_file($pic['tmp_name'], $filename);
-        $task->pic = $filename;
-        
-        print_r($task);
+        $task->done = filter_input(INPUT_POST, 'done') ? 1 : 0;
+        //if (key_exists('pic', $_FILES)) {
+            $pic = $_FILES['pic'];
+        if (!$pic['error']) {
+            $filename =  App::app()->params()['uploadpath'] . time() . "." . pathinfo($pic['name'], PATHINFO_EXTENSION);
+            move_uploaded_file($pic['tmp_name'], App::app()->params()['enterpoint'] .  $filename);
+            $task->pic = $filename;
+        }
+        //print_r($task);
+        //print_r($task->primary());
+        $taskDAO = new ModelDAO(Task::class);
+        $taskDAO->save($task);
+                        
+        return $this->index();
     }
     
     public function json() {

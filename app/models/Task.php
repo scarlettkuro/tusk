@@ -14,7 +14,7 @@ class Task implements ModelInterface {
     use Model;
     
     /** @property int id id */
-    private $id = NULL;
+    private $id;
     /** @property String name */
     private $name;
     /** @property String email */
@@ -27,7 +27,7 @@ class Task implements ModelInterface {
     private $done;
     
     public static function table_name() {
-        return 'task';
+        return 'tasks';
     }
     
     public static function fields() {
