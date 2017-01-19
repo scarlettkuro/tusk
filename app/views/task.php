@@ -20,13 +20,13 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputFile">Picture</label>
-                <input name = "pic" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                <input  id= "pic" name = "pic" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
     <div class="card" style="width:320px;">
-        <img class="card-img-top" src="http://lorempixel.com/320/240/abstract" alt="Card image cap">
+        <div style = "height: 240px; width: 320px; overflow: hidden;" ><img style="width: 100%;" class="card-img-top" id = "pica"></div>
         <div class="card-block">
             <h4 ng-if = "done" class="card-title">
                 <span class="badge badge-success ">Done</span>

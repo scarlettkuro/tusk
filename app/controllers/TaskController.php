@@ -2,9 +2,10 @@
 
 namespace app\controllers;
 
-use app\models\ModelDAO;
+use framework\ModelDAO;
 use app\models\Task;
-use \app\App;
+use framework\App;
+use framework\Controller;
 
 class TaskController {
     
@@ -50,6 +51,11 @@ class TaskController {
         $task->pic = $filename;
         
         print_r($task);
+    }
+    
+    public function json() {
+        
+        return json_encode([print_r($_FILE, true)]);
     }
     
 }

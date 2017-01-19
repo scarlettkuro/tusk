@@ -1,8 +1,8 @@
 <?php
 
-namespace app\controllers;
+namespace framework;
 
-use \app\App;
+use framework\App;
 
 trait Controller {
     

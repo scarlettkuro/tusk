@@ -1,9 +1,8 @@
 <?php
 
-namespace app\models;
+namespace framework;
 
-use app\App;
-
+use framework\App;
 /**
  * Description of ModelDAO
  *

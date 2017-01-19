@@ -3,7 +3,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 $params = [
-    'viewpath' => __DIR__ . '/../views/',
+    'viewpath' => __DIR__ . '/../app/views/',
     'uploadpath' => __DIR__ . '/upload/',
     'dbparams' => [
         'driver' => '',
@@ -14,7 +14,7 @@ $params = [
     ]
 ];
 
-$app = new app\App($params);
+$app = new framework\App($params);
 
 $ctrl = new app\controllers\TaskController();
 
@@ -22,6 +22,7 @@ $app->addRoutes( [
     '/' => [$ctrl, 'index'],
     '/task' => [$ctrl, 'task'],
     '/save' => [$ctrl, 'save'],
+    '/json' => [$ctrl, 'json'],
     //'/create' => ['TaskController', 'create'],
     //'/edit/{id}' => ['TaskController', 'edit']
 ]);

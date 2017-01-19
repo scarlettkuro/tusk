@@ -1,6 +1,9 @@
 <?php
 
 namespace app\models;
+
+use framework\ModelInterface;
+use framework\Model;
 /**
  * Description of Task
  *
