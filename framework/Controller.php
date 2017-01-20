@@ -19,5 +19,10 @@ trait Controller {
         return ob_get_clean();
     }
     
+    public function redirect($route) {
+        header("Location: $route");
+        die();
+    }
+    
 }
 

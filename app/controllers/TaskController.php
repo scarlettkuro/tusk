@@ -54,7 +54,7 @@ class TaskController {
         
         $taskDAO->save($task);
                         
-        return $this->index();
+        $this->redirect("/");
     }
     
 }
