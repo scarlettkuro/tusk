@@ -31,9 +31,7 @@ $app->addRoutes( [
     '/' => [TaskController::class, 'index'],
     '/task' => [TaskController::class, 'task'],
     '/task/{id}' => [TaskController::class, 'task'],
-    '/save' => [TaskController::class, 'save'],
-    //'/create' => ['TaskController', 'create'],
-    //'/edit/{id}' => ['TaskController', 'edit']
+    '/save' => [TaskController::class, 'save']
 ]);
 
 echo $app->run();
