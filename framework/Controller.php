@@ -6,6 +6,8 @@ use framework\App;
 
 trait Controller {
     
+    use Singleton;
+    
     public function render($view, $params) {
         $content = $this->renderView($view, $params);
         return $this->renderView('layout.php', ['content' => $content]);

@@ -1,6 +1,9 @@
+<?php 
+use framework\App;
+?>
 <div class="row container" style="margin-top:20px" ng-app>
     <div class="col-6">
-        <form action = "/save" method="post" enctype="multipart/form-data">
+        <form action = "<?= App::app()->route([TaskController::class, 'save']) ?>" method="post" enctype="multipart/form-data">
             <input value="<?= $task->id ?>" name ="id" type="hidden"/>
             <div class="form-check">
                 <label class="form-check-label">
@@ -21,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputFile">Picture</label>
-                <input  id= "pic" name = "pic" type="file" class="form-control-file" aria-describedby="fileHelp">
+                <input  id= "pic" name = "pic" accept="image/*" type="file" class="form-control-file" aria-describedby="fileHelp">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

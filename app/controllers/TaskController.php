@@ -12,6 +12,10 @@ class TaskController {
     
     use Controller;
     
+    protected function init() {
+        //constructor
+    }
+    
     public function index() {
         $taskDAO = new ModelDAO(Task::class);
         $tasks = $taskDAO->readAll();

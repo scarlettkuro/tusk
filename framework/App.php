@@ -33,6 +33,10 @@ class App {
         $this->router->addRoutes($routes);
     }
 
+    public function route($action, $params = []) {
+        return $this->router->route($action, $params);
+    }
+
     public function run() {
         $route_action = $this->router->dispatch($_SERVER['REQUEST_URI']);
         echo call_user_func_array($route_action[0], $route_action[1]);

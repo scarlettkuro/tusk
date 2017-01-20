@@ -1,13 +1,18 @@
+<?php 
+use framework\App;
+?>
 <div class="card-columns">
     <?php foreach($tasks as $task) : ?>
     <div class="card" style="width:320px;">
+        <?php if ($task->pic) : ?>
         <img src = "<?= $task->pic ?>" class="card-img-top">
+        <?php endif; ?>
         <div class="card-block">
             <h4 class="card-title">
                 <?php if ($task->done) : ?>
-                <span class="badge badge-success ">Done</span>
+                <span class="badge badge-success">Done</span>
                 <?php endif; ?>
-                <a href="/task/<?= $task->id ?>" class="badge badge-warning card-link ">Edit</a>
+                <a href="<?= App::app()->route([TaskController::class, 'task'], [$task->id]) ?>" class="badge badge-warning card-link ">Edit</a>
             </h4> 
             <p class="card-text"><?= $task->text ?></p>
         </div>

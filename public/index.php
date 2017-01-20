@@ -26,14 +26,12 @@ $pdo = new PDO("$driver:host=$host;dbname=$dbname;charset=$charset", $username, 
   ]);
 $app->addComponent('pdo', $pdo);
 
-$ctrl = new TaskController();
 
 $app->addRoutes( [
-    '/' => [$ctrl, 'index'],
-    '/task' => [$ctrl, 'task'],
-    '/task/{id}' => [$ctrl, 'task'],
-    '/save' => [$ctrl, 'save'],
-    '/json' => [$ctrl, 'json'],
+    '/' => [TaskController::class, 'index'],
+    '/task' => [TaskController::class, 'task'],
+    '/task/{id}' => [TaskController::class, 'task'],
+    '/save' => [TaskController::class, 'save'],
     //'/create' => ['TaskController', 'create'],
     //'/edit/{id}' => ['TaskController', 'edit']
 ]);
