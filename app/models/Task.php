@@ -26,6 +26,10 @@ class Task implements ModelInterface {
     /** @property bool done */
     private $done;
     
+    public function setDone($value) {
+        $this->done = $value ? 1 : 0;
+    }
+    
     public static function table_name() {
         return 'tasks';
     }

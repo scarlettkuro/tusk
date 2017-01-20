@@ -36,11 +36,11 @@ class TaskController {
         $id = filter_input(INPUT_POST, Task::primary());
         $task = $id ? $taskDAO->read($id) : new Task();
         
-        $fields = array_diff(Task::fields(), ['pic', 'done']);
+        $fields = array_diff(Task::fields(), ['pic']);
         foreach($fields as $field) {
             $task->$field = filter_input(INPUT_POST, $field);
         }
-        $task->done = filter_input(INPUT_POST, 'done') != NULL ? true : false;
+        
         $pic = $_FILES['pic'];
         if (!$pic['error']) {
             $filename =  App::app()->params()['uploadpath'] . time() . "." . pathinfo($pic['name'], PATHINFO_EXTENSION);
@@ -55,11 +55,6 @@ class TaskController {
         $taskDAO->save($task);
                         
         return $this->index();
-    }
-    
-    public function json() {
-        
-        return json_encode([print_r($_FILE, true)]);
     }
     
 }
