@@ -21,7 +21,9 @@ $params = [
 
 $app = new App($params);
 extract($app->params()['dbparams']);
-$pdo = new PDO("$driver:host=$host;dbname=$dbname;charset=$charset", $username, $password);
+$pdo = new PDO("$driver:host=$host;dbname=$dbname;charset=$charset", $username, $password,[
+    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+  ]);
 $app->addComponent('pdo', $pdo);
 
 $ctrl = new TaskController();
