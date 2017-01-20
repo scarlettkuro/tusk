@@ -4,7 +4,7 @@
         <img src = "<?= $task->pic ?>" class="card-img-top">
         <div class="card-block">
             <h4 class="card-title">
-            <?php if ($task->done) : ?>
+                <?php if ($task->done) : ?>
                 <span class="badge badge-success ">Done</span>
                 <?php endif; ?>
                 <a href="/task/<?= $task->id ?>" class="badge badge-warning card-link ">Edit</a>
