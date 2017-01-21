@@ -19,8 +19,9 @@ class TaskController {
     public function index() {
         $taskDAO = new ModelDAO(Task::class);
         $tasks = $taskDAO->readAll();
+        $admin = App::app()->component('auth')->isUser();
                 
-        return $this->render('index.php', ['tasks' => $tasks]);
+        return $this->render('index.php', ['tasks' => $tasks, 'admin' => $admin]);
     }
     
     public function task($id = NULL) {
@@ -58,7 +59,7 @@ class TaskController {
         
         $taskDAO->save($task);
                         
-        $this->redirect("/");
+        $this->redirect([TaskController::class, 'index']);
     }
     
 }

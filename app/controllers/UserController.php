@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use framework\App;
 use framework\Controller;
-use app\models\User;
 
 /**
  * Description of UserController
@@ -22,13 +21,16 @@ class UserController {
     public function auth() {
         $auth = App::app()->component('auth');
         $auth->attempt("username = :username AND password = :password",  [
-            'username' => 'admin',
-            'password' => '123'
+            'username' => filter_input(INPUT_POST, 'username'),
+            'password' => filter_input(INPUT_POST, 'password')
         ]);
-        //die(var_dump()))
+        //die(var_dump(App::app()->component('auth')->isUser()));
+        $this->redirect([TaskController::class, 'index']);
     }
     
-    public function loogout() {
+    public function logout() {
         App::app()->component('auth')->logout();
+        //die(var_dump(App::app()->component('auth')->isUser()));
+        $this->redirect([TaskController::class, 'index']);
     }
 }

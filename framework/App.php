@@ -16,6 +16,7 @@ class App {
     
     
     public function __construct($params = []) {
+        session_start();
         $this->router = new Router();
         $this->params = $params;
         self::$app = $this;

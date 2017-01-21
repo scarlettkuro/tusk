@@ -16,13 +16,12 @@ class Auth {
     
     public function __construct($userclass) {
         $this->userclass = $userclass;
-        session_start();
     }
     
     public function attempt($where, $params) {
         $userDAO = new ModelDAO($this->userclass);
         $user = $userDAO->query($where, $params);
-        return $this->login($user);
+         return $user ? $this->login($user) : false;
     }
     
     public function login(UserInterface $user) {

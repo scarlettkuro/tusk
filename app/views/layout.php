@@ -1,6 +1,7 @@
 <?php 
 use framework\App;
 use app\controllers\TaskController;
+use app\controllers\UserController;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,10 +16,25 @@ use app\controllers\TaskController;
     <body>
         <div class="container">
             <div class="card card-inverse" style="background-color: #333; border-color: #333;">
-                <div class="card-block">
-                    <a href="<?= App::app()->route([TaskController::class, 'index']) ?>" class="card-title"><h3>Tusk</h3></a>
-                    <p class="card-text">Simple task manager.</p>
-                    <a href="<?= App::app()->route([TaskController::class, 'task']) ?>" class="btn btn-primary">Add task</a>
+                <div class="card-block row">
+                    <div class = "col-4">
+                        <a href="<?= App::app()->route([TaskController::class, 'index']) ?>" class="card-title col-6"><h3>Tusk</h3></a>
+                        <p class="card-text">Simple task manager.</p>
+                        <a href="<?= App::app()->route([TaskController::class, 'task']) ?>" class="btn btn-primary">Add task</a>
+                    </div>
+                    <div class = "col-8">
+                        <?php if (!$admin) : ?>
+                        <form action = "<?= App::app()->route([UserController::class, 'auth']) ?>" method = "post" class="form-inline">
+                            <input type="text" name="username" class="form-control " placeholder="username">
+                            <input type="text" name="password" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="password">
+                            
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        </form>
+                        <?php else : ?>
+                        <a href ="<?= App::app()->route([UserController::class, 'logout']) ?>" class="btn btn-primary">Sign out</a>
+                        <?php endif; ?>
+                    </div>
+                    
                 </div>
             </div>
             <?=$content?>

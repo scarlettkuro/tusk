@@ -10,7 +10,8 @@ trait Controller {
     
     public function render($view, $params) {
         $content = $this->renderView($view, $params);
-        return $this->renderView('layout.php', ['content' => $content]);
+        $params['content'] = $content;
+        return $this->renderView('layout.php', $params);
     }
     
     public function renderView($view, $params) {
@@ -22,6 +23,9 @@ trait Controller {
     }
     
     public function redirect($route) {
+        if (is_array($route)) {
+            $route = App::app()->route($route);
+        }
         header("Location: $route");
         die();
     }
