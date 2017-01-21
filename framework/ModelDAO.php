@@ -3,6 +3,7 @@
 namespace framework;
 
 use framework\App;
+use framework\ModelInterface;
 /**
  * Description of ModelDAO
  *
@@ -18,16 +19,15 @@ class ModelDAO {
         $this->modelClass = $class;
     }
     
-    public function readAll() {
+    public function readAll() {  
         $table_name = call_user_func([$this->modelClass, 'table_name']);
         
-        $statement = $this->pdo->prepare("SELECT * FROM $table_name" );
+        $sql = "SELECT * FROM $table_name";
         
-        if (!$statement->execute()) {
-            echo "\nPDO::errorInfo():\n";
-            print_r($statement->errorInfo());
-        }
-        [];
+        $statement = $this->pdo->prepare($sql);
+        
+        $statement->execute() or $this->sqlException($statement);
+        
         $statement->setFetchMode(\PDO::FETCH_CLASS, $this->modelClass);
         $entities =  $statement->fetchAll();
         
@@ -35,23 +35,30 @@ class ModelDAO {
     }
     
     public function read($id) {
-        $table_name = call_user_func([$this->modelClass, 'table_name']);
-        $pk= call_user_func([$this->modelClass, 'primary']);
+        $pk = call_user_func([$this->modelClass, 'primary']);
         
-        $sql = "SELECT * FROM $table_name WHERE $pk = :$pk";                      
-        $statement = $this->pdo->prepare($sql); 
-        $statement->bindParam(':' . $pk, $id /*, PDO::PARAM_STR*/);    
-        if (!$statement->execute()) {
-            echo "\nPDO::errorInfo():\n";
-            print_r($statement->errorInfo());
-        }
-        $statement->setFetchMode(\PDO::FETCH_CLASS, $this->modelClass);
-        $entity = $statement->fetch();
-        
-        return $entity;
+        return $this->query("$pk = :id", ['id' => $id]);
     }
     
-    public function save($entity) {        
+    public function query($where, $params) { 
+        $table_name = call_user_func([$this->modelClass, 'table_name']);
+        
+        $sql = "SELECT * FROM $table_name WHERE $where";    
+        
+        $statement = $this->pdo->prepare($sql);   
+        
+        foreach($params as $key=>$value) {
+            $statement->bindValue(":$key", $value);
+        }
+        
+        $statement->execute() or $this->sqlException($statement);
+        
+        $statement->setFetchMode(\PDO::FETCH_CLASS, $this->modelClass);
+        
+        return $statement->fetch();
+    }
+    
+    public function save(ModelInterface $entity) {        
         if ($this->isNew($entity)) {
             $this->create($entity);
         } else {
@@ -60,54 +67,56 @@ class ModelDAO {
         
     }
     
-    // - - -
-    
-    public function isNew($entity) {
+    public function isNew(ModelInterface $entity) {
         $pk = $entity->primary();
         
         return $entity->$pk == NULL;
     }
     
-    public function create($entity) {
+    public function create(ModelInterface $entity) {
         $fields = array_diff($entity->fields(), [$entity->primary()]);
         $table_name = $entity->table_name();
         
-        $sql = "INSERT INTO $table_name (" . implode(", ", $fields) . ") VALUES (:" . implode(", :", $fields) . ")";   
+        $keys = implode(", ",$fields);
+        $set_list = implode(", :", $fields);
+        
+        $sql = "INSERT INTO $table_name ($keys) VALUES (:$set_list)";   
+        //die(print_r($values, true));
         $statement = $this->pdo->prepare($sql);
-
-        foreach($fields as $field) {                       
-            $statement->bindParam(':' . $field, $entity->$field /*, PDO::PARAM_STR*/);       
+        
+        foreach($fields as $field) {
+            $statement->bindParam(":$field", $entity->$field);
         }
         
-        if (!$statement->execute()) {
-            echo "\nPDO::errorInfo():\n";
-            print_r($statement->errorInfo());
-        }
+        $statement->execute() or $this->sqlException($statement);
     }
 
 
-    public function update($entity) {
+    public function update(ModelInterface $entity) {
         $fields = $entity->fields();
-        $table_name = $entity->table_name();
         $pk = $entity->primary();
+        $table_name = $entity->table_name();
         
         $set = [];
         
         foreach($fields as $field) {                       
-            $set[] = "$field = :$field";  
+            $set[] = "$field = :$field";
         }
         
-        $sql = "UPDATE $table_name SET " . implode(", ", $set) . " WHERE $pk = :$pk";                              
+        $set_list = implode(", ", $set);
+        
+        $sql = "UPDATE $table_name SET $set_list WHERE $pk = :$pk";                              
         $statement = $this->pdo->prepare($sql);
-
-        foreach($fields as $field) {                       
-            $statement->bindParam(':' . $field, $entity->$field /*, PDO::PARAM_STR*/);       
+        
+        foreach($fields as $field) {
+            $statement->bindParam(":$field", $entity->$field);
         }
         
-        if (!$statement->execute()) {
-            echo "\nPDO::errorInfo():\n";
-            print_r($statement->errorInfo());
-        }
+        $statement->execute() or $this->sqlException($statement);
+    }
+    
+    public function sqlException ($statement) {
+        throw new \Exception($statement->errorInfo()[2]);
     }
     
 }
