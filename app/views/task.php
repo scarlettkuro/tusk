@@ -25,13 +25,13 @@ use app\controllers\TaskController;
             </div>
             <div class="form-group">
                 <label for="exampleInputFile">Picture</label>
-                <input  id= "pic" name = "pic" accept="image/*" type="file" class="form-control-file" aria-describedby="fileHelp">
+                <input  onchange="preloadPic(event, 'preview')" name = "pic" accept="image/*" type="file" class="form-control-file" aria-describedby="fileHelp">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
     <div class="card" style="width:320px;">
-        <div style = "height: 240px; width: 320px; overflow: hidden;" ><img style="width: 100%;" src = "<?= $task->pic ?>" class="card-img-top" id = "pica"></div>
+        <div style = "height: 240px; width: 320px; overflow: hidden;" ><img style="width: 100%;" src = "<?= $task->pic ?>" class="card-img-top" id = "preview"></div>
         <div class="card-block">
             <h4 ng-if = "done" class="card-title">
                 <span class="badge badge-success ">Done</span>
