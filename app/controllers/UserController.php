@@ -24,7 +24,10 @@ class UserController {
             'username' => filter_input(INPUT_POST, 'username'),
             'password' => filter_input(INPUT_POST, 'password')
         ]);
-        //die(var_dump(App::app()->component('auth')->isUser()));
+        if (!App::app()->component('auth')->isUser()) {
+            App::app()->component('flash')->set('auth', 'Wrong password or username.');
+        }
+        //die(var_dump());
         $this->redirect([TaskController::class, 'index']);
     }
     

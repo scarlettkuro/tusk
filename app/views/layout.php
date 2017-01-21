@@ -25,13 +25,21 @@ use app\controllers\UserController;
                     <div class = "col-8">
                         <?php if (!$admin) : ?>
                         <form action = "<?= App::app()->route([UserController::class, 'auth']) ?>" method = "post" class="form-inline">
-                            <input type="text" name="username" class="form-control " placeholder="username">
-                            <input type="text" name="password" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="password">
+                            <input type="text" name="username" class="form-control col-5 " placeholder="username">
+                            <input type="text" name="password" class="form-control col-5 " placeholder="password">
                             
-                            <button type="submit" class="btn btn-primary">Sign in</button>
+                            <button type="submit" class="btn btn-primary col-2">Sign in</button>
                         </form>
+                            <?php if (App::app()->component('flash')->exist('auth')) : ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <?= App::app()->component('flash')->get('auth') ?>
+                            </div>
+                            <?php endif; ?>
                         <?php else : ?>
-                        <a href ="<?= App::app()->route([UserController::class, 'logout']) ?>" class="btn btn-primary">Sign out</a>
+                        <a href ="<?= App::app()->route([UserController::class, 'logout']) ?>" class="btn btn-primary offset-10 col-2">Sign out</a>
                         <?php endif; ?>
                     </div>
                     
