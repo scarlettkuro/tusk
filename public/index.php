@@ -24,9 +24,10 @@ $app->addComponent('flash', new Flash());
 
 $app->addRoutes( [
     '/' => [TaskController::class, 'index'],
-    '/task' => [TaskController::class, 'task'],
-    '/task/{id}' => [[TaskController::class, 'task'], $auth],
+    '/create' => [TaskController::class, 'task'],
+    '/edit/{id}' => [[TaskController::class, 'task'], $auth],
     '/save' => [TaskController::class, 'save'],
+    '/save/{id}' => [[TaskController::class, 'save'], $auth],
     '/auth' => [UserController::class, 'auth'],
     '/logout' => [UserController::class, 'logout']
 ]);

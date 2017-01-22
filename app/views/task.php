@@ -4,8 +4,7 @@ use app\controllers\TaskController;
 ?>
 <div class="row container" style="margin-top:20px" ng-app>
     <div class="col-6">
-        <form action = "<?= App::app()->route([TaskController::class, 'save']) ?>" method="post" enctype="multipart/form-data">
-            <input value="<?= $task->id ?>" name ="id" type="hidden"/>
+        <form action = "<?= App::app()->route([TaskController::class, 'save'], $id ? [$id] : []) ?>" method="post" enctype="multipart/form-data">
             <div class="form-check">
                 <label class="form-check-label">
                     <input ng-init = "done = <?= $task->done ? "true" : "false" ?>" ng-model="done" name = "done" type="checkbox" class="form-check-input"> Done

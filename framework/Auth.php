@@ -55,7 +55,7 @@ class Auth {
             $next = array_pop($middlewares);        
             echo $next($middlewares);
         } else {
-            App::app()->component('flash')->set('auth', 'Not enough rights.');
+            App::app()->component('flash')->set('auth', 'Not enough permissions.');
             App::app()->redirect(App::app()->component('router')->defaultRoute());
         }
         //while responce

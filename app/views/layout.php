@@ -20,7 +20,7 @@ use app\controllers\UserController;
                     <div class = "col-4">
                         <a href="<?= App::app()->route([TaskController::class, 'index']) ?>" class="card-title col-6"><h3>Tusk</h3></a>
                         <p class="card-text">Simple task manager.</p>
-                        <a href="<?= App::app()->route([TaskController::class, 'task']) ?>" class="btn btn-primary">Add task</a>
+                        <a href="<?= App::app()->route([TaskController::class, 'task']) ?>" class="btn btn-primary">New task</a>
                     </div>
                     <div class = "col-8">
                         <?php if (!App::app()->component('auth')->isUser()) : ?>

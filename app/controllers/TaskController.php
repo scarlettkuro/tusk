@@ -32,15 +32,15 @@ class TaskController {
             $task = new Task();
         }
                 
-        return $this->render('task.php', ['task' => $task]);
+        return $this->render('task.php', ['id' => $id, 'task' => $task]);
     }
     
-    public function save() {
+    public function save($id = NULL) {
         $taskDAO = new ModelDAO(Task::class);
-        $id = filter_input(INPUT_POST, Task::primary());
         $task = $id ? $taskDAO->read($id) : new Task();
         
-        $fields = array_diff(Task::fields(), ['pic']);
+        
+        $fields = array_diff(Task::fields(), ['id', 'pic']);
         foreach($fields as $field) {
             $task->$field = filter_input(INPUT_POST, $field);
         }
