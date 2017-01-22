@@ -46,10 +46,11 @@ class ImageProccessor {
     }
    
     public function resize($width, $height) {
-        $new_image = imagecreatetruecolor($width, $height);
         $ratio =  $this->width / $width;
         $scaled_height = min([$this->height, $height * $ratio]);
-        imagecopyresampled($new_image, $this->image, 0, 0, 0, 0, $width, $height, $this->width, $scaled_height);
+        $new_scaled_height =  $scaled_height / $ratio;
+        $new_image = imagecreatetruecolor($width, $new_scaled_height);
+        imagecopyresized($new_image, $this->image, 0, 0, 0, 0, $width, $new_scaled_height, $this->width, $scaled_height);
         $this->image = $new_image;
     }
 }
