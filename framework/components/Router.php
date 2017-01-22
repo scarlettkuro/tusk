@@ -4,7 +4,9 @@ namespace framework\components;
 
 class Router {
 
+    /** @var Array $routes Array of routes (patterns with callables */
     private $routes = [];
+    /** @var String $defaultRoute Default route */
     private $defaultRoute;
 
     /**
@@ -21,8 +23,8 @@ class Router {
 
     /**
      * Adds route.
-     * @param String Route pattern
-     * @param Callable $route Array of two elements: class of the controller
+     * @param String $route Route pattern
+     * @param Callable $action Array of two elements: class of the controller
      * and name of action.
      */
     public function addRoute($route, $action) {

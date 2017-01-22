@@ -11,7 +11,9 @@ use framework\models\ModelInterface;
  */
 class ModelDAO {
     
+    /** @var PDO $pdo PDO object */
     private $pdo;
+    /** @var class $modelClass Model class */
     private $modelClass;
     
     /**

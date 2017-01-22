@@ -10,10 +10,14 @@ use framework\components\Router;
  */
 class App {
     
+    /** @var App $app Instance of app */
     private static $app;
     
+    /** @var Array $params App params */
     private $params;
+    /** @var Array $components Instance of app */
     private $components;
+    /** @var Array $middlewares Array of middlewares */
     private $middlewares = [];
     
     
@@ -37,10 +41,9 @@ class App {
     }
 
     /**
-     * Shrotcut to the Router's addRoute.
      * Adds route.
-     * @param String Route pattern
-     * @param Callable $route Array of two elements: class of the controller
+     * @param String $route Route pattern
+     * @param Callable $action Array of two elements: class of the controller
      * and name of action.
      */
     public function addRoute($route, $action) {

@@ -13,17 +13,17 @@ class Task implements ModelInterface {
     
     use Model;
     
-    /** @property int id id */
+    /** @var int $id id */
     private $id;
-    /** @property String name */
+    /** @var String $name */
     private $name;
-    /** @property String email */
+    /** @var String $email */
     private $email;
-    /** @property String text */
+    /** @var String $text */
     private $text;
-    /** @property String pic */
+    /** @var String $pic */
     private $pic;
-    /** @property bool done */
+    /** @var bool $done */
     private $done;
     
     public function setDone($value) {

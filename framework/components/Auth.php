@@ -12,7 +12,9 @@ use framework\models\ModelDAO;
  */
 class Auth {
     
+    /** @var class $userclass User model class */
     private $userclass;
+    
     const SESSION_PARAM = 'user';
     
     /**
