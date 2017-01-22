@@ -30,7 +30,7 @@ $csrf = App::app()->component('csrf');
                 <label for="exampleInputFile">Picture</label>
                 <input  onchange="preloadPic(event, 'preview')" name = "pic" accept="image/*" type="file" class="form-control-file" aria-describedby="fileHelp">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
     <div class="card" style="width:320px;">
