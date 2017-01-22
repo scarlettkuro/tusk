@@ -35,4 +35,4 @@ $app->addRoutes( [
     '/logout' => [UserController::class, 'logout']
 ]);
 
-echo $app->run();
+$app->run();
