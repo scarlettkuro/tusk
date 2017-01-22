@@ -7,11 +7,13 @@ $csrf = App::app()->component('csrf');
     <div class="col-6">
         <form action = "<?= App::app()->route([TaskController::class, 'save'], $id ? [$id] : []) ?>" method="post" enctype="multipart/form-data">
             <input type="hidden" name="<?= $csrf->getTokenParam() ?>" value="<?= $csrf->getToken() ?>">
+            <?php if (App::app()->component('auth')->isUser()) : ?>
             <div class="form-check">
                 <label class="form-check-label">
                     <input ng-init = "done = <?= $task->done ? "true" : "false" ?>" ng-model="done" name = "done" type="checkbox" class="form-check-input"> Done
                 </label>
             </div>
+            <?php endif; ?>
             <div class="form-group">
                 <label for="example-text-input">Name</label>
                 <input  ng-init = "name = '<?= $task->name ?>'" ng-model="name"  name = "name" class="form-control" type="text" placeholder="Artisanal kale" id="example-text-input">
@@ -32,7 +34,7 @@ $csrf = App::app()->component('csrf');
         </form>
     </div>
     <div class="card" style="width:320px;">
-        <div style = "height: 240px; width: 320px; overflow: hidden;" ><img style="width: 100%;" src = "<?= $task->pic ?>" class="card-img-top" id = "preview"></div>
+        <div style = "height: 240px; width: 320px; overflow: hidden;" ><img style="width: 100%;" src = "<?= $task->pic ?>" class="card-img-top" id = "preview" ng-show ="document.getElementById('preview').src != ''"></div>
         <div class="card-block">
             <h4 ng-if = "done" class="card-title">
                 <span class="badge badge-success ">Done</span>
