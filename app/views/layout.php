@@ -23,7 +23,7 @@ use app\controllers\UserController;
                         <a href="<?= App::app()->route([TaskController::class, 'task']) ?>" class="btn btn-primary">Add task</a>
                     </div>
                     <div class = "col-8">
-                        <?php if (!$admin) : ?>
+                        <?php if (!App::app()->component('auth')->isUser()) : ?>
                         <form action = "<?= App::app()->route([UserController::class, 'auth']) ?>" method = "post" class="form-inline">
                             <input type="text" name="username" class="form-control col-5 " placeholder="username">
                             <input type="text" name="password" class="form-control col-5 " placeholder="password">

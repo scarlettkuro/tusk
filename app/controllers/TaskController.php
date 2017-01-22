@@ -19,9 +19,8 @@ class TaskController {
     public function index() {
         $taskDAO = new ModelDAO(Task::class);
         $tasks = $taskDAO->readAll();
-        $admin = App::app()->component('auth')->isUser();
                 
-        return $this->render('index.php', ['tasks' => $tasks, 'admin' => $admin]);
+        return $this->render('index.php', ['tasks' => $tasks]);
     }
     
     public function task($id = NULL) {

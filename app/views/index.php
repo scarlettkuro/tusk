@@ -13,7 +13,9 @@ use app\controllers\TaskController;
                 <?php if ($task->done) : ?>
                 <span class="badge badge-success">Done</span>
                 <?php endif; ?>
+                <?php if (App::app()->component('auth')->isUser()) : ?>
                 <a href="<?= App::app()->route([TaskController::class, 'task'], [$task->id]) ?>" class="badge badge-warning card-link ">Edit</a>
+                <?php endif; ?>
             </h4> 
             <p class="card-text"><?= $task->text ?></p>
         </div>

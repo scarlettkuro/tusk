@@ -10,8 +10,7 @@ trait Controller {
     
     public function render($view, $params) {
         $content = $this->renderView($view, $params);
-        $params['content'] = $content;
-        return $this->renderView('layout.php', $params);
+        return $this->renderView('layout.php', ['content' => $content]);
     }
     
     public function renderView($view, $params) {
