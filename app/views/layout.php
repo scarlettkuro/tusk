@@ -2,6 +2,7 @@
 use framework\App;
 use app\controllers\TaskController;
 use app\controllers\UserController;
+$csrf = App::app()->component('csrf');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +28,7 @@ use app\controllers\UserController;
                         <form action = "<?= App::app()->route([UserController::class, 'auth']) ?>" method = "post" class="form-inline">
                             <input type="text" name="username" class="form-control col-5 " placeholder="username">
                             <input type="text" name="password" class="form-control col-5 " placeholder="password">
-                            
+                            <input type="hidden" name="<?= $csrf->getTokenParam() ?>" value="<?= $csrf->getToken() ?>">
                             <button type="submit" class="btn btn-primary col-2">Sign in</button>
                         </form>
                             <?php if (App::app()->component('flash')->exist('auth')) : ?>

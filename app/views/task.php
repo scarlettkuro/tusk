@@ -1,10 +1,12 @@
 <?php 
 use framework\App;
 use app\controllers\TaskController;
+$csrf = App::app()->component('csrf');
 ?>
 <div class="row container" style="margin-top:20px" ng-app>
     <div class="col-6">
         <form action = "<?= App::app()->route([TaskController::class, 'save'], $id ? [$id] : []) ?>" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="<?= $csrf->getTokenParam() ?>" value="<?= $csrf->getToken() ?>">
             <div class="form-check">
                 <label class="form-check-label">
                     <input ng-init = "done = <?= $task->done ? "true" : "false" ?>" ng-model="done" name = "done" type="checkbox" class="form-check-input"> Done

@@ -9,6 +9,7 @@ use framework\PDOFabric;
 use framework\Auth;
 use app\models\User;
 use framework\Flash;
+use framework\CSRF;
 
 $params = [
     'enterpoint' => __DIR__,
@@ -20,6 +21,8 @@ $app = new App($params);
 $app->addComponent('pdo', PDOFabric::getPDO(parse_ini_file(__DIR__.'/../db.ini')));
 $auth = new Auth(User::class);
 $app->addComponent('auth', $auth);
+$csrf = new CSRF();
+$app->addComponent('csrf', $csrf);
 $app->addComponent('flash', new Flash());
 
 $app->addRoutes( [
@@ -27,8 +30,8 @@ $app->addRoutes( [
     '/create' => [TaskController::class, 'task'],
     '/edit/{id}' => [[TaskController::class, 'task'], $auth],
     '/save' => [TaskController::class, 'save'],
-    '/save/{id}' => [[TaskController::class, 'save'], $auth],
-    '/auth' => [UserController::class, 'auth'],
+    '/save/{id}' => [[TaskController::class, 'save'], $auth, $csrf],
+    '/auth' => [[UserController::class, 'auth'], $csrf],
     '/logout' => [UserController::class, 'logout']
 ]);
 
