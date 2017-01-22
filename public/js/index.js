@@ -23,7 +23,7 @@ function sort(clas, param) {
         //alert(a[mparam]);
         var elem = $(this);
         elem.remove();
-        $(elem).appendTo("#tasks");
+        $(elem).appendTo("#" + clas + "s");
     });
     
     sort.param = reverse ? '' : param;
