@@ -9,6 +9,10 @@ namespace framework\models;
  */
 trait Model {
     
+    /**
+     * Allow to get private properties and
+     * use get methods to retrieve them
+     */
     public function __set ($name , $value) {
         if (in_array($name, $this->fields())) {
             $method_name = 'set' . ucfirst($name);
@@ -20,6 +24,10 @@ trait Model {
         }
     }
     
+    /**
+     * Allow to set private properties and
+     * use set methods to populate them
+     */
     public function __get ($name) {
         if (in_array($name, $this->fields())) {
             $method_name = 'get' . ucfirst($name);
