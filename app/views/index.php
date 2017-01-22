@@ -2,9 +2,9 @@
 use framework\App;
 use app\controllers\TaskController;
 ?>
-<div class="row container">
+<div class="row container" style="margin: 10px;">
     <h5>
-        Sort :
+        Sort by:
         <a href="#" onclick="sort('task','email')" class="badge badge-pill badge-info">email</a>
         <a href="#" onclick="sort('task','name')" class="badge badge-pill badge-info">name</a>
         <a href="#" onclick="sort('task','done')" class="badge badge-pill badge-info">done</a>
