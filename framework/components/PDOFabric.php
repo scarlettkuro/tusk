@@ -11,6 +11,11 @@ use \PDO;
  */
 class PDOFabric {
     
+    /**
+     * Creates a PDO object with passed params
+     * @param Array Connection data
+     * @return PDO PDO object
+     */
     public static function getPDO($params) {
         extract($params);
         return new PDO(
