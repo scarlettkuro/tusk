@@ -18,13 +18,14 @@ $params = [
 
 $app = new App($params);
 $app->addComponent('pdo', PDOFabric::getPDO(parse_ini_file(__DIR__.'/../db.ini')));
-$app->addComponent('auth', new Auth(User::class));
+$auth = new Auth(User::class);
+$app->addComponent('auth', $auth);
 $app->addComponent('flash', new Flash());
 
 $app->addRoutes( [
     '/' => [TaskController::class, 'index'],
     '/task' => [TaskController::class, 'task'],
-    '/task/{id}' => [TaskController::class, 'task'],
+    '/task/{id}' => [[TaskController::class, 'task'], $auth],
     '/save' => [TaskController::class, 'save'],
     '/auth' => [UserController::class, 'auth'],
     '/logout' => [UserController::class, 'logout']

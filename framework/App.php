@@ -9,15 +9,17 @@ namespace framework;
  */
 class App {
     
-    private $router;
+    //private $router;
     private $params;
     private $components;
     private static $app;
+    private $middlewares = [];
     
     
     public function __construct($params = []) {
         session_start();
-        $this->router = new Router();
+        $this->addComponent('router', new Router());
+        //$this->router = $this->component('router');
         $this->params = $params;
         self::$app = $this;
     }
@@ -27,20 +29,27 @@ class App {
     }
 
     public function addRoute($route, $action) {
-        $this->router->addRoute($route, $action);
+        $this->component('router')->addRoute($route, $action);
     }
 
     public function addRoutes($routes) {
-        $this->router->addRoutes($routes);
+        $this->component('router')->addRoutes($routes);
     }
 
     public function route($action, $params = []) {
-        return $this->router->route($action, $params);
+        return $this->component('router')->route($action, $params);
     }
 
     public function run() {
-        $route_action = $this->router->dispatch($_SERVER['REQUEST_URI']);
-        echo call_user_func_array($route_action[0], $route_action[1]);
+        $route_action = $this->component('router')->dispatch($_SERVER['REQUEST_URI']);
+        $middlewares = array_merge([
+           function ($middlewares) use ($route_action) {
+                return call_user_func_array($route_action[0], $route_action[1]);
+           }
+        ], $route_action[2] , $this->middlewares);
+        
+        $next = array_pop($middlewares);
+        echo $next($middlewares);
     }
     
     public function params() {
@@ -53,5 +62,13 @@ class App {
     
     public function component($id) {
         return $this->components[$id];
+    }
+    
+    public function redirect($route) {
+        if (is_array($route)) {
+            $route = $this->route($route);
+        }
+        header("Location: $route");
+        die();
     }
 }

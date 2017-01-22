@@ -36,7 +36,6 @@ class Auth {
     }
     
     public function isUser() {
-        //die(var_dump($_SESSION['user']));
         return $_SESSION['user'] != NULL;
     }
     
@@ -47,6 +46,19 @@ class Auth {
     
     public function logout() {
         $_SESSION['user'] = NULL;
+    }
+    
+    public function __invoke($middlewares) {
+        //while request        
+        if ($this->isUser()) {
+        //go next
+            $next = array_pop($middlewares);        
+            echo $next($middlewares);
+        } else {
+            App::app()->component('flash')->set('auth', 'Not enough rights.');
+            App::app()->redirect(App::app()->component('router')->defaultRoute());
+        }
+        //while responce
     }
     
 }

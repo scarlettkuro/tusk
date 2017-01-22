@@ -22,11 +22,7 @@ trait Controller {
     }
     
     public function redirect($route) {
-        if (is_array($route)) {
-            $route = App::app()->route($route);
-        }
-        header("Location: $route");
-        die();
+        App::app()->redirect($route);
     }
     
 }
