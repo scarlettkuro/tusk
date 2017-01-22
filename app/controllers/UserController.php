@@ -18,6 +18,9 @@ class UserController {
         //constructor
     }
     
+    /**
+     * Making attempt to authorize user with POST data
+     */
     public function auth() {
         $auth = App::app()->component('auth');
         $auth->attempt("username = :username AND password = :password",  [
@@ -31,6 +34,9 @@ class UserController {
         $this->redirect([TaskController::class, 'index']);
     }
     
+    /**
+     * Logout authorized user
+     */
     public function logout() {
         App::app()->component('auth')->logout();
         //die(var_dump(App::app()->component('auth')->isUser()));

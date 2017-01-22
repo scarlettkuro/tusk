@@ -9,11 +9,18 @@ namespace app\service;
  */
 class ImageProccessor {
 
+    /** @var Image $image Original image */
     private $image;
+    /** @var String $type Image type (extension) */
     private $type;
+    /** @var int $width Image width */
     private $width;
+    /** @var int $height Image height */
     private $height;
             
+    /**
+     * @param String $filename Picture filename
+     */
     public function __construct($filename) {
         
         $info = getimagesize($filename);
@@ -32,6 +39,10 @@ class ImageProccessor {
         }
     }
    
+    /**
+     * Save picture to a file
+     * @param String $filename Target filename
+     */
     public function save($filename) {
        
         switch ($this->type) {
@@ -45,6 +56,11 @@ class ImageProccessor {
         }
     }
    
+    /**
+     * Resize picture. Width is constant. Height will be lower than $height
+     * @param int $width Width after resize
+     * @param int $height Maximum height after resize
+     */
     public function resize($width, $height) {
         $ratio =  $this->width / $width;
         $scaled_height = min([$this->height, $height * $ratio]);

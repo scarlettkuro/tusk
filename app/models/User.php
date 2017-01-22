@@ -14,11 +14,11 @@ class User implements ModelInterface {
     
     use Model;
     
-    /** @property int id id */
+    /** @var int $id id */
     private $id;
-    /** @property String name */
+    /** @var String $name */
     private $username;
-    /** @property String password */
+    /** @var String $password */
     private $password;
     
     public function getPassword() {

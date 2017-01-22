@@ -16,6 +16,9 @@ class TaskController {
         //constructor
     }
     
+    /**
+     * Returns main page with full task list
+     */
     public function index() {
         $taskDAO = new ModelDAO(Task::class);
         $tasks = $taskDAO->readAll();
@@ -23,6 +26,10 @@ class TaskController {
         return $this->render('index.php', ['tasks' => $tasks]);
     }
     
+    /**
+     * Returns page for editing 
+     * @param int $id Task id, if passed
+     */
     public function task($id = NULL) {
         $task = NULL;
         if ($id != NULL) {
@@ -35,6 +42,11 @@ class TaskController {
         return $this->render('task.php', ['id' => $id, 'task' => $task]);
     }
     
+    /**
+     * Saves Task data from POST
+     * Update task with id $id or inserts new
+     * @param int $id Task id, if passed
+     */
     public function save($id = NULL) {
         $taskDAO = new ModelDAO(Task::class);
         $task = $id ? $taskDAO->read($id) : new Task();

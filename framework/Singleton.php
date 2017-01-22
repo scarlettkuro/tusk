@@ -21,6 +21,9 @@ trait Singleton {
         $this->init();
     }
     
+    /**
+     * This method will be called after instance creation
+     */
     protected function init() {
         //constructor
     }
