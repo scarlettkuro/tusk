@@ -2,15 +2,15 @@
 
 namespace app\models;
 
-use framework\UserInterface;
-use framework\Model;
+use framework\models\ModelInterface;
+use framework\models\Model;
 
 /**
  * Description of User
  *
  * @author kuro
  */
-class User implements UserInterface {
+class User implements ModelInterface {
     
     use Model;
     

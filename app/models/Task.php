@@ -2,8 +2,8 @@
 
 namespace app\models;
 
-use framework\ModelInterface;
-use framework\Model;
+use framework\models\ModelInterface;
+use framework\models\Model;
 /**
  * Description of Task
  *

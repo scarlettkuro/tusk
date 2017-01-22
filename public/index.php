@@ -5,11 +5,11 @@ require __DIR__ . '/../vendor/autoload.php';
 use framework\App;
 use app\controllers\TaskController;
 use app\controllers\UserController;
-use framework\PDOFabric;
-use framework\Auth;
+use framework\components\PDOFabric;
+use framework\components\Auth;
+use framework\components\Flash;
+use framework\components\CSRF;
 use app\models\User;
-use framework\Flash;
-use framework\CSRF;
 
 $params = [
     'enterpoint' => __DIR__,

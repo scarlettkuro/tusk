@@ -2,6 +2,7 @@
 
 namespace framework;
 
+use framework\components\Router;
 /**
  * Description of App
  *

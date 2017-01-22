@@ -2,10 +2,10 @@
 
 namespace app\controllers;
 
-use framework\ModelDAO;
-use app\models\Task;
 use framework\App;
-use framework\Controller;
+use framework\models\ModelDAO;
+use framework\controllers\Controller;
+use app\models\Task;
 use app\service\ImageProccessor;
 
 class TaskController {

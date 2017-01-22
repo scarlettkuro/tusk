@@ -1,8 +1,9 @@
 <?php
 
-namespace framework;
+namespace framework\controllers;
 
 use framework\App;
+use framework\Singleton;
 
 trait Controller {
     

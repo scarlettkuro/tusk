@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use framework\App;
-use framework\Controller;
+use framework\controllers\Controller;
 
 /**
  * Description of UserController

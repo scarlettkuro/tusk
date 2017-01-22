@@ -1,9 +1,9 @@
 <?php
 
-namespace framework;
+namespace framework\components;
 
-use framework\UserInterface;
-use framework\ModelDAO;
+use framework\models\ModelInterface;
+use framework\models\ModelDAO;
 
 /**
  * Description of Auth
@@ -24,7 +24,7 @@ class Auth {
          return $user ? $this->login($user) : false;
     }
     
-    public function login(UserInterface $user) {
+    public function login(ModelInterface $user) {
         $userDAO = new ModelDAO($this->userclass);
         if (!$userDAO->isNew($user)) {
             $pk = $user->primary();
