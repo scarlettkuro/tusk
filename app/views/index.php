@@ -2,9 +2,21 @@
 use framework\App;
 use app\controllers\TaskController;
 ?>
-<div class="card-columns">
+<div class="row container">
+    <h5>
+        Sort :
+        <a href="#" onclick="sort('task','email')" class="badge badge-pill badge-info">email</a>
+        <a href="#" onclick="sort('task','name')" class="badge badge-pill badge-info">name</a>
+        <a href="#" onclick="sort('task','done')" class="badge badge-pill badge-info">done</a>
+    </h5>
+</div>
+<div id = "tasks" class="card-columns">
     <?php foreach($tasks as $task) : ?>
-    <div class="card" style="width:320px;">
+    <div class = "task card " 
+         task-email = "<?= $task->email ?>"
+         task-name = "<?= $task->name ?>"
+         task-done = "<?= $task->done ? 0 : 1 ?>"
+         style="width:320px;">
         <?php if ($task->pic) : ?>
         <img src = "<?= $task->pic ?>" class="card-img-top">
         <?php endif; ?>

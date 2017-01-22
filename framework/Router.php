@@ -30,7 +30,6 @@ class Router {
             $matches = [];
 
             if (preg_match_all($this->regularize($route), $regularRoute, $matches, PREG_SET_ORDER)) {
-                //die(var_dump($routePattern));
                 array_shift($matches[0]);
                 $regular_params = $matches[0];
                 

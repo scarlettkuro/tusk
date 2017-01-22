@@ -16,7 +16,7 @@ $csrf = App::app()->component('csrf');
             <?php endif; ?>
             <div class="form-group">
                 <label for="example-text-input">Name</label>
-                <input  ng-init = "name = '<?= $task->name ?>'" ng-model="name"  name = "name" class="form-control" type="text" placeholder="Artisanal kale" id="example-text-input">
+                <input  ng-init = "name = '<?= $task->name ?>'" ng-model="name"  name = "name" class="form-control" type="text" placeholder="Enter name" id="example-text-input">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email</label>
