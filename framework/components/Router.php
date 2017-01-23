@@ -16,7 +16,7 @@ class Router {
      */
     public function regularize($pattern) {
         $pattern = preg_quote($pattern, '/');
-        $pattern = preg_replace('/\\\((.*)\\\)/U', '(.*)', $pattern); //numeric
+        $pattern = preg_replace('/\\\{(.*)\\\}/U', '(.*)', $pattern); //numeric
         $pattern = '/' . $pattern . '$/U';
         return $pattern;
     }

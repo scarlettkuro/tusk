@@ -2,6 +2,8 @@
 
 namespace framework\components;
 
+use framework\App;
+
 /**
  * Description of CSRF
  *
