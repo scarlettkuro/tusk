@@ -12,7 +12,7 @@ class Flash {
     const SESSION_PARAM = 'flash';
     
     protected function init() {
-        if (!$_SESSION[self::SESSION_PARAM]) {
+        if (!isset($_SESSION[self::SESSION_PARAM])) {
             $_SESSION[self::SESSION_PARAM] = [];
         }
     }

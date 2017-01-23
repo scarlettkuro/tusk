@@ -22,6 +22,9 @@ class Auth {
      */
     public function __construct($userclass) {
         $this->userclass = $userclass;
+        if (!isset($_SESSION[self::SESSION_PARAM])) {
+            $_SESSION[self::SESSION_PARAM] = NULL;
+        }
     }
     
     /**
